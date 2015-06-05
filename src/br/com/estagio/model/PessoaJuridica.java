@@ -92,6 +92,14 @@ public class PessoaJuridica implements Serializable{
         this.email = email;
     }
 
+    public Endereco getId_endereco() {
+        return id_endereco;
+    }
+
+    public void setId_endereco(Endereco id_endereco) {
+        this.id_endereco = id_endereco;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;

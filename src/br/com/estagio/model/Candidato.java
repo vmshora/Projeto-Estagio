@@ -4,16 +4,21 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@Entity
+@Table(name = "candidato")
 public class Candidato implements Serializable{
 
     public Candidato() {
@@ -30,7 +35,7 @@ public class Candidato implements Serializable{
     @JoinColumn(name="id_endereco",referencedColumnName="id",nullable=false)
     private Endereco id_endereco;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="id_curso",referencedColumnName="id",nullable=false)
     private Curso id_curso;
    
@@ -44,7 +49,7 @@ public class Candidato implements Serializable{
 
     private Integer ano_conclusao;
     
-    @Column(name="nivel_escolaridade", length=1, nullable=false)
+    @Column(name="sexo", length=1, nullable=false)
     private String sexo;
 
     @Column(name="status", length=1, nullable=false)
@@ -63,7 +68,7 @@ public class Candidato implements Serializable{
     private String telefone;
     
     @ManyToMany
-    @JoinTable(name="vaga_habilidade", joinColumns={@JoinColumn(name="id_vaga")}, inverseJoinColumns={@JoinColumn(name="id_habilidade")})
+    @JoinTable(name="candidato_habilidade", joinColumns={@JoinColumn(name="id_candidato")}, inverseJoinColumns={@JoinColumn(name="id_habilidade")})
     private Set<Habilidade> habilidades;
 
     public Long getId() {

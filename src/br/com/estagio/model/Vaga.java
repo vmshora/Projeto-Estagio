@@ -11,9 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  *
@@ -39,11 +38,14 @@ public class Vaga implements Serializable{
     @Column(name="status", length=1, nullable=false)
     private String status;
     private Integer valor_bolsa;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="id_curso",referencedColumnName="id",nullable=false)
     private Curso curso;
     @Column(name="ds_beneficio", length=200, nullable=false)
     private String ds_beneficio;
+    @ManyToOne
+    @JoinColumn(name="id_pessoa_juridica",referencedColumnName="id",nullable=false)
+    private PessoaJuridica empresa;
     @ManyToMany
     @JoinTable(name="vaga_habilidade", joinColumns={@JoinColumn(name="id_vaga")}, inverseJoinColumns={@JoinColumn(name="id_habilidade")})
     private Set<Habilidade> habilidades;
@@ -121,14 +123,23 @@ public class Vaga implements Serializable{
         this.turno = turno;
     }
 
-    @Transient
-    public StatusTipoEnum getStatusTipoEnum() {
-        return StatusTipoEnum.fromValue(status);
+    public PessoaJuridica getEmpresa() {
+        return empresa;
     }
 
-    public void setStatusTipoEnum(StatusTipoEnum statusEnum) {
-        this.status = statusEnum.toValue();
+    public void setEmpresa(PessoaJuridica empresa) {
+        this.empresa = empresa;
     }
+
+   
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;
