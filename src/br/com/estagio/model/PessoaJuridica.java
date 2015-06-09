@@ -1,6 +1,7 @@
 package br.com.estagio.model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,9 +33,9 @@ public class PessoaJuridica implements Serializable{
     private String ds_tipo;
     @Column(name="email", length=20)
     private String email;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="id_endereco",referencedColumnName="id",nullable=false)
-    private Endereco id_endereco;
+    private Endereco endereco;
 
     public Long getId() {
         return id;
@@ -92,12 +93,12 @@ public class PessoaJuridica implements Serializable{
         this.email = email;
     }
 
-    public Endereco getId_endereco() {
-        return id_endereco;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setId_endereco(Endereco id_endereco) {
-        this.id_endereco = id_endereco;
+    public void setEndereco(Endereco id_endereco) {
+        this.endereco = id_endereco;
     }
 
     @Override

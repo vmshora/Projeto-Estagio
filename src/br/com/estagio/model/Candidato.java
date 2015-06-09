@@ -3,6 +3,7 @@ package br.com.estagio.model;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,13 +32,15 @@ public class Candidato implements Serializable{
     @Column(name="nome", length=80, nullable=false)
     private String nome;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="id_endereco",referencedColumnName="id",nullable=false)
-    private Endereco id_endereco;
+    private Endereco endereco;
+
+   
 
     @ManyToOne
     @JoinColumn(name="id_curso",referencedColumnName="id",nullable=false)
-    private Curso id_curso;
+    private Curso curso;
    
     @Temporal(TemporalType.DATE)
     private Calendar dt_nascimento;
@@ -67,7 +70,7 @@ public class Candidato implements Serializable{
     @Column(name="telefone", length=12)
     private String telefone;
     
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="candidato_habilidade", joinColumns={@JoinColumn(name="id_candidato")}, inverseJoinColumns={@JoinColumn(name="id_habilidade")})
     private Set<Habilidade> habilidades;
 
@@ -87,20 +90,20 @@ public class Candidato implements Serializable{
         this.nome = nome;
     }
 
-    public Endereco getId_endereco() {
-        return id_endereco;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setId_endereco(Endereco id_endereco) {
-        this.id_endereco = id_endereco;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
-    public Curso getId_curso() {
-        return id_curso;
+    public Curso getCurso() {
+        return curso;
     }
 
-    public void setId_curso(Curso id_curso) {
-        this.id_curso = id_curso;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     public Calendar getDt_nascimento() {

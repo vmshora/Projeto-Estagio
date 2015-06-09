@@ -6,14 +6,11 @@
 package br.com.estagio.model;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -28,22 +25,12 @@ public class Habilidade implements Serializable{
     }
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private Integer id;
     @Column(name="descricao", length=20, nullable=false)
     private String descricao;
     
-    /*@ManyToMany(mappedBy="vaga")
-    private Set<Vaga> vagas;
-
-    public Set<Vaga> getVagas() {
-        return vagas;
-    }
-
-    public void setVagas(Set<Vaga> vagas) {
-        this.vagas = vagas;
-    }*/
-
-    public Integer getId() {
+   public Integer getId() {
         return id;
     }
 

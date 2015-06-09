@@ -14,6 +14,9 @@ import javax.persistence.Table;
 @Table(name = "endereco")
 public class Endereco implements Serializable{
 
+    public Endereco() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  
     private Long id;
@@ -24,5 +27,55 @@ public class Endereco implements Serializable{
  
     @Column(name="complemento", length=80)
     private String complemento;
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Logradouro getLogradouro() {
+        return logradouro;
+    }
+
+    public void setLogradouro(Logradouro logradouro) {
+        this.logradouro = logradouro;
+    }
+
+    public Long getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Long numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Endereco other = (Endereco) obj;
+        return true;
+    }
 
 }
