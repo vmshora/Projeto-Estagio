@@ -2,7 +2,7 @@ package br.com.estagio.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -46,16 +47,26 @@ public class Vaga implements Serializable{
     @ManyToOne
     @JoinColumn(name="id_pessoa_juridica",referencedColumnName="id",nullable=false)
     private PessoaJuridica empresa;
+    @OneToMany(mappedBy = "id")
+    private List<Candidato> candidatos;
     @ManyToMany
     @JoinTable(name="vaga_habilidade", joinColumns={@JoinColumn(name="id_vaga")}, inverseJoinColumns={@JoinColumn(name="id_habilidade")})
-    private Set<Habilidade> habilidades;
+    private List<Habilidade> habilidades;
 
-    public Set<Habilidade> getHabilidades() {
+    public List<Habilidade> getHabilidades() {
         return habilidades;
     }
 
-    public void setHabilidades(Set<Habilidade> habilidades) {
+    public void setHabilidades(List<Habilidade> habilidades) {
         this.habilidades = habilidades;
+    }
+
+    public List<Candidato> getCandidatos() {
+        return candidatos;
+    }
+
+    public void setCandidatos(List<Candidato> candidatos) {
+        this.candidatos = candidatos;
     }
 
     public Long getId() {

@@ -2,6 +2,7 @@ package br.com.estagio.model;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -70,9 +72,12 @@ public class Candidato implements Serializable{
     @Column(name="telefone", length=12)
     private String telefone;
     
+    @OneToMany(mappedBy = "id")
+    private List<Vaga> vagas;
+    
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="candidato_habilidade", joinColumns={@JoinColumn(name="id_candidato")}, inverseJoinColumns={@JoinColumn(name="id_habilidade")})
-    private Set<Habilidade> habilidades;
+    private List<Habilidade> habilidades;
 
     public Long getId() {
         return id;
@@ -82,6 +87,15 @@ public class Candidato implements Serializable{
         this.id = id;
     }
 
+    public List<Vaga> getVagas() {
+        return vagas;
+    }
+
+    public void setVagas(List<Vaga> vagas) {
+        this.vagas = vagas;
+    }
+
+    
     public String getNome() {
         return nome;
     }
@@ -186,11 +200,11 @@ public class Candidato implements Serializable{
         this.telefone = telefone;
     }
 
-    public Set<Habilidade> getHabilidades() {
+    public List<Habilidade> getHabilidades() {
         return habilidades;
     }
 
-    public void setHabilidades(Set<Habilidade> habilidades) {
+    public void setHabilidades(List<Habilidade> habilidades) {
         this.habilidades = habilidades;
     }
 
