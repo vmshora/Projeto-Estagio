@@ -5,6 +5,8 @@
  */
 package br.com.estagio.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -20,7 +23,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="habilidade")
 public class Habilidade implements Serializable{
-
+  
     public Habilidade() {
     }
     
@@ -34,16 +37,14 @@ public class Habilidade implements Serializable{
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getDescricao() {
+   public String getDescricao() {
         return descricao;
     }
 
     public void setDescricao(String descricao) {
+       
         this.descricao = descricao;
+       
     }
 
      @Override
@@ -64,4 +65,10 @@ public class Habilidade implements Serializable{
         return true;
     }
     
+    @Override
+    public String toString() {
+        return this.descricao;
+    }
+
+       
 }

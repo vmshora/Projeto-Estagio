@@ -54,4 +54,8 @@ public class Curso implements Serializable{
         return true;
     }
 
+    @Override
+    public String toString() {
+        return this.ds_curso;
+    }
 }

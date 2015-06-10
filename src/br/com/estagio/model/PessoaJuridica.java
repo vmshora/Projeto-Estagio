@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class PessoaJuridica implements Serializable{
     private String ds_tipo;
     @Column(name="email", length=20)
     private String email;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name="id_endereco",referencedColumnName="id",nullable=false)
     private Endereco endereco;
 
@@ -118,5 +119,8 @@ public class PessoaJuridica implements Serializable{
         final PessoaJuridica other = (PessoaJuridica) obj;
         return true;
     }
-
+    @Override
+    public String toString() {
+        return this.nome;
+    }
 }
