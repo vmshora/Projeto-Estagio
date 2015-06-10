@@ -43,12 +43,8 @@ public class VagaJF extends javax.swing.JInternalFrame {
         listPJ = new ArrayList<PessoaJuridica>();
         vagaC = new VagaController();
         listH = new ArrayList<Habilidade>();
-        /*
-        for(int i = 0; i<10; i++){
-        
-        m1.addElement("item:" + i);
-        }
-        */
+        h = new ArrayList<Habilidade>();
+    
        populaCurso();
        populaEmpresa();
        popularJList1();
@@ -348,17 +344,25 @@ public class VagaJF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Combo_turnoActionPerformed
 
     private void B_rmvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_rmvActionPerformed
-      
-        m1.addElement((Habilidade)jList2.getSelectedValue());
-        m2.removeElement((Habilidade)jList2.getSelectedValue());
+       Habilidade h2 = new Habilidade();
+       
+        h2 = (Habilidade)jList2.getSelectedValue();
+        h.remove(h2);
+        m1.addElement(jList2.getSelectedValue());
+        m2.removeElement(jList2.getSelectedValue());
+       
         jList1.setSelectedIndex(0);
-         jList2.setSelectedIndex(0);
+        jList2.setSelectedIndex(0);
     }//GEN-LAST:event_B_rmvActionPerformed
 
     private void B_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_addActionPerformed
-               
-       m2.addElement((Habilidade)jList1.getSelectedValue());
-       m1.removeElement((Habilidade)jList1.getSelectedValue());
+       Habilidade h1 = new Habilidade();
+    
+       h1 = (Habilidade)jList1.getSelectedValue();
+       h.add(h1);
+       m2.addElement(jList1.getSelectedValue());
+       m1.removeElement(jList1.getSelectedValue());
+     
        jList2.setSelectedIndex(0);
        jList1.setSelectedIndex(0);
     }//GEN-LAST:event_B_addActionPerformed
@@ -403,8 +407,7 @@ public class VagaJF extends javax.swing.JInternalFrame {
 
 
     final void populaVaga(){
-       
-       addHabilidade(m2); 
+       //List<Habilidade> list = new ArrayList<Habilidade>();
        vaga.setCurso((Curso)Combo_curso.getSelectedItem());
        vaga.setDescricao(TA_descricao.getText());
        vaga.setDs_beneficio(TA_beneficios.getText());
@@ -412,10 +415,15 @@ public class VagaJF extends javax.swing.JInternalFrame {
        vaga.setStatus("D");
        vaga.setTurno(Combo_turno.getSelectedItem().toString());
        vaga.setValor_bolsa(Integer.parseInt(TF_bolsa.getText()));
-       //vaga.setHabilidades();
+       vaga.setHabilidades(h);
        
-        
-          System.out.println(jList2.getModel().getElementAt(0).hashCode());
+       System.out.println("chegou aqui");
+       System.out.println(h.size());
+       for(Habilidade lista:h){
+     
+       System.out.println(lista.getDescricao());
+      
+       }
     }
     
     private void populaCurso(){
@@ -446,17 +454,6 @@ public class VagaJF extends javax.swing.JInternalFrame {
         
     }
 
-    private void addHabilidade(DefaultListModel m2) {
-        
-         System.out.println();
-      
-       // h.addAll((List<Habilidade>)m2);
-        /*for(int i=0; i<m2.size(); i++){
-        
-        h.add((Habilidade)m2.getElementAt(i));
-        }*/
-        
-    }
      
     
 }
