@@ -61,12 +61,12 @@ public class Vaga implements Serializable{
         this.habilidades = habilidades;
     }
 
-    public List<Candidato> getCandidatos() {
-        return candidatos;
+      public List<Candidato> getCandidatos() {
+    return candidatos;
     }
-
+    
     public void setCandidatos(List<Candidato> candidatos) {
-        this.candidatos = candidatos;
+    this.candidatos = candidatos;
     }
 
     public Long getId() {

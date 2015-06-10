@@ -416,20 +416,19 @@ public class VagaJF extends javax.swing.JInternalFrame {
        vaga.setTurno(Combo_turno.getSelectedItem().toString());
        vaga.setValor_bolsa(Integer.parseInt(TF_bolsa.getText()));
        vaga.setHabilidades(h);
-       
-       System.out.println("chegou aqui");
-       System.out.println(h.size());
-       for(Habilidade lista:h){
      
-       System.out.println(lista.getDescricao());
-      
-       }
+       try{
+  
+       vagaC.salvarVaga(vaga);
+     }catch(Exception e){
+          e.printStackTrace();
+      }
     }
-    
+       
     private void populaCurso(){
         List<Curso> c = vagaC.popularCursos();
        
-         for (Curso obj : c ) { 
+       for (Curso obj : c ) { 
         Combo_curso.addItem(obj);
        
       }

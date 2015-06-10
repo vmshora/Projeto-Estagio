@@ -36,25 +36,25 @@ public class VagaDao {
         }
         
         
-    public void salvar(Vaga vaga) {
+    public void salvar(Vaga vaga){
         EntityManager em = EntityManagerUtil.getEntityManager();
         try {
            
             em.getTransaction().begin();
             System.out.println("Salvando a vaga.");
             
-            /* if (vaga.getId() == null) {
+            if (vaga.getId() == null) {
             
             em.persist(vaga);
             } else {
             //Atualiza os dados da pessoa.
             vaga = em.merge(vaga);
-            }*/
+            }
             // Finaliza a transação.
             em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();  
+       } catch (Exception ex) {
+           em.getTransaction().rollback(); 
+	   
         } finally {
             em.close();
         }
