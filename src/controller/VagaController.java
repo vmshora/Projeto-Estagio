@@ -54,6 +54,12 @@ public class VagaController {
              
          }
         
+          public void exluirVaga(Vaga vaga){
+             
+             
+             v.excluir(vaga);
+             
+         }
          public void pupularTabela(DefaultTableModel mTable, Long cod){
              
              if(cod == null){

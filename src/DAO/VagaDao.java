@@ -44,7 +44,7 @@ public class VagaDao {
             System.out.println("Salvando a vaga.");
             
             if (vaga.getId() == null) {
-            
+             System.out.println("persistindo a vaga.");
             em.persist(vaga);
             } else {
             //Atualiza os dados da pessoa.
@@ -54,6 +54,7 @@ public class VagaDao {
             em.getTransaction().commit();
        } catch (Exception ex) {
            em.getTransaction().rollback(); 
+            ex.printStackTrace();
 	   
         } finally {
             em.close();
@@ -98,6 +99,22 @@ public class VagaDao {
         }
            
            return vaga;
+                
+        }
+       
+       public void excluir(Vaga vaga) {
+       
+           EntityManager em = EntityManagerUtil.getEntityManager();
+        try {
+           
+            em.getTransaction().begin();
+            em.remove(vaga);
+            
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+          
                 
         }
       

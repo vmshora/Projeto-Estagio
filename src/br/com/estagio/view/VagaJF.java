@@ -18,6 +18,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -93,6 +94,7 @@ public class VagaJF extends javax.swing.JInternalFrame {
         B_rmv = new javax.swing.JButton();
         B_buscar = new javax.swing.JButton();
         B_alterar = new javax.swing.JButton();
+        B_excluir = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -100,9 +102,17 @@ public class VagaJF extends javax.swing.JInternalFrame {
         setTitle("Gerenciar Vagas");
         setAutoscrolls(true);
 
+        Combo_Empresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Combo_EmpresaActionPerformed(evt);
+            }
+        });
+
         LB_empresa.setText("Empresa:");
 
         Combo_turno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Matutino", "Vespertino", "Noturno", "Diurno" }));
+        Combo_turno.setSelectedIndex(-1);
+        Combo_turno.setToolTipText("");
         Combo_turno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Combo_turnoActionPerformed(evt);
@@ -243,6 +253,13 @@ public class VagaJF extends javax.swing.JInternalFrame {
             }
         });
 
+        B_excluir.setText("Excluir");
+        B_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B_excluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -286,10 +303,12 @@ public class VagaJF extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(B_novo)
-                        .addGap(100, 100, 100)
-                        .addComponent(B_gravar)
-                        .addGap(104, 104, 104)
-                        .addComponent(B_alterar))
+                        .addGap(97, 97, 97)
+                        .addComponent(B_alterar)
+                        .addGap(99, 99, 99)
+                        .addComponent(B_excluir)
+                        .addGap(119, 119, 119)
+                        .addComponent(B_gravar))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 809, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -341,27 +360,37 @@ public class VagaJF extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(B_novo)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(B_novo)
-                        .addComponent(B_gravar))
-                    .addComponent(B_alterar))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(B_alterar)
+                        .addComponent(B_gravar)
+                        .addComponent(B_excluir)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void B_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_novoActionPerformed
-        populaCurso();
+       limpaFormaulario();
+       populaCurso();
        populaEmpresa();
        popularJList1();
-        habilitaCampos(true);
+       habilitaCampos(true);
     }//GEN-LAST:event_B_novoActionPerformed
 
     private void B_gravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_gravarActionPerformed
         // TODO add your handling code here:
+        if (TA_beneficios.getText().isEmpty() || TA_descricao.getText().isEmpty() || Combo_curso.getSelectedItem() == null || 
+            Combo_Empresa.getSelectedItem() == null || Combo_turno.getSelectedItem() == null || TF_bolsa.getText().isEmpty() ||  h.size() == 0) {  // ou texto.trim().isEmpty()  
+               
+        // campo vazio = mensagem de erro?  
+         JOptionPane.showMessageDialog(rootPane, "Um ou mais campos não foram preenchidos!");
+        
+        }else {       
         populaVaga();
         
+        }
     }//GEN-LAST:event_B_gravarActionPerformed
 
     private void Combo_cursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Combo_cursoActionPerformed
@@ -397,21 +426,26 @@ public class VagaJF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_B_addActionPerformed
 
     private void B_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_buscarActionPerformed
+         B_alterar.setEnabled(true);
+         mTable.setNumRows(0);
         vagaC.pupularTabela(mTable, null);
        
     }//GEN-LAST:event_B_buscarActionPerformed
 
     private void jTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMousePressed
-        // TODO add your handling code here:
+        B_alterar.setEnabled(true);
     }//GEN-LAST:event_jTableMousePressed
 
     private void B_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_alterarActionPerformed
-        
+        limpaFormaulario();
         habilitaCampos(true);
          populaEmpresa();
          populaCurso();
          popularJList1();
-       vaga = vagaC.preencherCampos((Long)mTable.getValueAt(0,jTable.getSelectedRow()));
+       
+       // System.out.println(mTable.getValueAt(jTable.getSelectedRow(),0));
+       vaga = vagaC.preencherCampos((Long)mTable.getValueAt(jTable.getSelectedRow(),0));
+       
        TF_bolsa.setText(vaga.getValor_bolsa().toString());
        Combo_Empresa.setSelectedItem(vaga.getEmpresa());
        Combo_curso.setSelectedItem(vaga.getCurso());
@@ -423,11 +457,21 @@ public class VagaJF extends javax.swing.JInternalFrame {
        
     }//GEN-LAST:event_B_alterarActionPerformed
 
+    private void Combo_EmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Combo_EmpresaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Combo_EmpresaActionPerformed
+
+    private void B_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_excluirActionPerformed
+       //  vaga = vagaC.preencherCampos((Long)mTable.getValueAt(jTable.getSelectedRow(),0));
+      // vaga = (Vaga)mTable.getColumnClass(0);
+    }//GEN-LAST:event_B_excluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton B_add;
     private javax.swing.JButton B_alterar;
     private javax.swing.JButton B_buscar;
+    private javax.swing.JButton B_excluir;
     private javax.swing.JButton B_gravar;
     private javax.swing.JButton B_novo;
     private javax.swing.JButton B_rmv;
@@ -471,13 +515,17 @@ public class VagaJF extends javax.swing.JInternalFrame {
        vaga.setTurno(Combo_turno.getSelectedItem().toString());
        vaga.setValor_bolsa(Integer.parseInt(TF_bolsa.getText()));
        vaga.setHabilidades(h);
-     
+       System.out.println(h.size());
+       
        try{
-  
+       
        vagaC.salvarVaga(vaga);
-     }catch(Exception e){
-          e.printStackTrace();
-      }
+       JOptionPane.showMessageDialog(rootPane, "Vaga gravada com sucesso");
+       limpaFormaulario();
+       }catch(Exception e){
+       e.printStackTrace();
+       }
+     
     }
        
     private void populaCurso(){
@@ -487,16 +535,18 @@ public class VagaJF extends javax.swing.JInternalFrame {
         Combo_curso.addItem(obj);
        
       }
+       Combo_curso.setSelectedIndex(-1);
     }     
    
      private void populaEmpresa(){
         //DefaultComboBoxModel model = new DefaultComboBoxModel(); 
         List<PessoaJuridica> p = vagaC.popularEmpresas();
+        
          for (PessoaJuridica obj : p ) { 
           
              Combo_Empresa.addItem(obj);
          }
-       
+       Combo_Empresa.setSelectedIndex(-1);
     }
 
     private void popularJList1() {
@@ -517,6 +567,8 @@ public class VagaJF extends javax.swing.JInternalFrame {
         TA_descricao.setEditable(valor);
         jList1.setEnabled(valor);
         jList2.setEnabled(valor);
+        B_alterar.setEnabled(!valor);
+        
     }   
 
     private void popularJList2(Vaga vaga) {
@@ -524,6 +576,23 @@ public class VagaJF extends javax.swing.JInternalFrame {
             for(Habilidade obj:vaga.getHabilidades()){
                 m2.addElement(obj);
         }
+    }
+
+    private void limpaFormaulario() {
+        
+       TF_bolsa.setText("");
+       Combo_Empresa.removeAllItems();
+       Combo_Empresa.setSelectedIndex(-1);
+       Combo_curso.removeAllItems();
+       Combo_curso.setSelectedIndex(-1);
+       Combo_turno.setSelectedIndex(-1);
+       TA_beneficios.setText("");
+       TA_descricao.setText("");
+       m1.clear();
+       m2.clear();
+       h.clear();
+       habilitaCampos(false);
+       
     }
     
 }

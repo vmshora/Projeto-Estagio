@@ -51,7 +51,7 @@ public class Vaga implements Serializable{
     private PessoaJuridica empresa;
     @OneToMany(mappedBy = "id")
     private List<Candidato> candidatos;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name="vaga_habilidade", joinColumns={@JoinColumn(name="id_vaga")}, inverseJoinColumns={@JoinColumn(name="id_habilidade")})
     private List<Habilidade> habilidades;
 
