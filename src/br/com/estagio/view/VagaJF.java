@@ -60,9 +60,6 @@ public class VagaJF extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dbEstagioPUEntityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("dbEstagioPU").createEntityManager();
-        habilidadeQuery = java.beans.Beans.isDesignTime() ? null : dbEstagioPUEntityManager.createQuery("SELECT h FROM Habilidade h");
-        habilidadeList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : habilidadeQuery.getResultList();
         Combo_Empresa = new javax.swing.JComboBox();
         LB_empresa = new javax.swing.JLabel();
         Combo_turno = new javax.swing.JComboBox();
@@ -450,9 +447,6 @@ public class VagaJF extends javax.swing.JInternalFrame {
     private javax.swing.JTextArea TA_descricao;
     private javax.swing.JTextField TF_bolsa;
     private javax.swing.JTextField TF_codigo;
-    private javax.persistence.EntityManager dbEstagioPUEntityManager;
-    private java.util.List<br.com.estagio.model.Habilidade> habilidadeList;
-    private javax.persistence.Query habilidadeQuery;
     private javax.swing.JList jList1;
     private DefaultListModel m1;
     private javax.swing.JList jList2;
