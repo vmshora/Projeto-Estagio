@@ -1,6 +1,7 @@
 package br.com.estagio.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,7 +39,8 @@ public class Curso implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 3;
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -51,8 +53,13 @@ public class Curso implements Serializable{
             return false;
         }
         final Curso other = (Curso) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
         return true;
     }
+
+   
 
     @Override
     public String toString() {

@@ -82,6 +82,25 @@ public class VagaDao {
            return vagas;
                 
         }
+       public Vaga buscaPorId(Long id) {
+                
+          Vaga vaga = new Vaga();
+           
+           EntityManager em = EntityManagerUtil.getEntityManager();
+        try {
+           
+            em.getTransaction().begin();
+            vaga = em.find(Vaga.class, id);
+            
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+           
+           return vaga;
+                
+        }
+      
  }    
               
 

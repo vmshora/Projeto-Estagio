@@ -18,6 +18,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,6 +34,7 @@ public class VagaJF extends javax.swing.JInternalFrame {
     DefaultListModel lm;
     List<Habilidade> listH;
     List<Habilidade> h;
+    DefaultTableModel mTable;
     
     public VagaJF() {
         initComponents();
@@ -44,11 +46,9 @@ public class VagaJF extends javax.swing.JInternalFrame {
         vagaC = new VagaController();
         listH = new ArrayList<Habilidade>();
         h = new ArrayList<Habilidade>();
-    
-       populaCurso();
-       populaEmpresa();
-       popularJList1();
-       
+        mTable = (DefaultTableModel)jTable.getModel();
+        habilitaCampos(false);
+     
     }
 
     /**
@@ -80,11 +80,11 @@ public class VagaJF extends javax.swing.JInternalFrame {
         LB_curso = new javax.swing.JLabel();
         Combo_curso = new javax.swing.JComboBox();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         LB_codigo = new javax.swing.JLabel();
         TF_codigo = new javax.swing.JTextField();
         B_novo = new javax.swing.JButton();
-        B_cadastrar = new javax.swing.JButton();
+        B_gravar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         m1 = new DefaultListModel();
@@ -94,6 +94,8 @@ public class VagaJF extends javax.swing.JInternalFrame {
         jList2 = new javax.swing.JList();
         B_add = new javax.swing.JButton();
         B_rmv = new javax.swing.JButton();
+        B_buscar = new javax.swing.JButton();
+        B_alterar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -137,7 +139,7 @@ public class VagaJF extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -153,7 +155,12 @@ public class VagaJF extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable1);
+        jTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTableMousePressed(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTable);
 
         LB_codigo.setText("Código:");
 
@@ -164,10 +171,10 @@ public class VagaJF extends javax.swing.JInternalFrame {
             }
         });
 
-        B_cadastrar.setText("Cadastrar");
-        B_cadastrar.addActionListener(new java.awt.event.ActionListener() {
+        B_gravar.setText("Gravar");
+        B_gravar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                B_cadastrarActionPerformed(evt);
+                B_gravarActionPerformed(evt);
             }
         });
 
@@ -225,6 +232,20 @@ public class VagaJF extends javax.swing.JInternalFrame {
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
+        B_buscar.setText("Buscar");
+        B_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B_buscarActionPerformed(evt);
+            }
+        });
+
+        B_alterar.setText("Alterar");
+        B_alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                B_alterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -262,12 +283,16 @@ public class VagaJF extends javax.swing.JInternalFrame {
                         .addGap(42, 42, 42)
                         .addComponent(LB_codigo)
                         .addGap(18, 18, 18)
-                        .addComponent(TF_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(TF_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addComponent(B_buscar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(B_novo)
-                        .addGap(69, 69, 69)
-                        .addComponent(B_cadastrar))
+                        .addGap(100, 100, 100)
+                        .addComponent(B_gravar)
+                        .addGap(104, 104, 104)
+                        .addComponent(B_alterar))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 809, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -313,27 +338,34 @@ public class VagaJF extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LB_pesquisar)
                     .addComponent(TF_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LB_codigo))
-                .addGap(28, 28, 28)
+                    .addComponent(LB_codigo)
+                    .addComponent(B_buscar))
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(B_novo)
-                    .addComponent(B_cadastrar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(B_novo)
+                        .addComponent(B_gravar))
+                    .addComponent(B_alterar))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void B_novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_novoActionPerformed
-        // TODO add your handling code here:
+        populaCurso();
+       populaEmpresa();
+       popularJList1();
+        habilitaCampos(true);
     }//GEN-LAST:event_B_novoActionPerformed
 
-    private void B_cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_cadastrarActionPerformed
+    private void B_gravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_gravarActionPerformed
         // TODO add your handling code here:
         populaVaga();
-    }//GEN-LAST:event_B_cadastrarActionPerformed
+        
+    }//GEN-LAST:event_B_gravarActionPerformed
 
     private void Combo_cursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Combo_cursoActionPerformed
         // TODO add your handling code here:
@@ -367,10 +399,39 @@ public class VagaJF extends javax.swing.JInternalFrame {
        jList1.setSelectedIndex(0);
     }//GEN-LAST:event_B_addActionPerformed
 
+    private void B_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_buscarActionPerformed
+        vagaC.pupularTabela(mTable, null);
+       
+    }//GEN-LAST:event_B_buscarActionPerformed
+
+    private void jTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableMousePressed
+
+    private void B_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_alterarActionPerformed
+        
+        habilitaCampos(true);
+         populaEmpresa();
+         populaCurso();
+         popularJList1();
+       vaga = vagaC.preencherCampos((Long)mTable.getValueAt(0,jTable.getSelectedRow()));
+       TF_bolsa.setText(vaga.getValor_bolsa().toString());
+       Combo_Empresa.setSelectedItem(vaga.getEmpresa());
+       Combo_curso.setSelectedItem(vaga.getCurso());
+       Combo_turno.setSelectedItem(vaga.getTurno());
+       TA_beneficios.setText(vaga.getDs_beneficio());
+       TA_descricao.setText(vaga.getDescricao());
+       popularJList2(vaga);
+       
+       
+    }//GEN-LAST:event_B_alterarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton B_add;
-    private javax.swing.JButton B_cadastrar;
+    private javax.swing.JButton B_alterar;
+    private javax.swing.JButton B_buscar;
+    private javax.swing.JButton B_gravar;
     private javax.swing.JButton B_novo;
     private javax.swing.JButton B_rmv;
     private javax.swing.JComboBox Combo_Empresa;
@@ -402,7 +463,7 @@ public class VagaJF extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
 
 
@@ -453,6 +514,22 @@ public class VagaJF extends javax.swing.JInternalFrame {
         
     }
 
-     
+    private void habilitaCampos(boolean valor){
+        TF_bolsa.setEditable(valor);
+        Combo_Empresa.setEnabled(valor);
+        Combo_curso.setEnabled(valor);
+        Combo_turno.setEnabled(valor);
+        TA_beneficios.setEditable(valor);
+        TA_descricao.setEditable(valor);
+        jList1.setEnabled(valor);
+        jList2.setEnabled(valor);
+    }   
+
+    private void popularJList2(Vaga vaga) {
+           h = (List<Habilidade>) vaga.getHabilidades();
+            for(Habilidade obj:vaga.getHabilidades()){
+                m2.addElement(obj);
+        }
+    }
     
 }

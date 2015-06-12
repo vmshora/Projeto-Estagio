@@ -1,6 +1,7 @@
 package br.com.estagio.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -104,7 +105,8 @@ public class PessoaJuridica implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -117,10 +119,16 @@ public class PessoaJuridica implements Serializable{
             return false;
         }
         final PessoaJuridica other = (PessoaJuridica) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
         return true;
     }
+
+   
     @Override
     public String toString() {
         return this.nome;
     }
+    
 }

@@ -3,8 +3,10 @@ package br.com.estagio.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -49,7 +51,7 @@ public class Vaga implements Serializable{
     private PessoaJuridica empresa;
     @OneToMany(mappedBy = "id")
     private List<Candidato> candidatos;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name="vaga_habilidade", joinColumns={@JoinColumn(name="id_vaga")}, inverseJoinColumns={@JoinColumn(name="id_habilidade")})
     private List<Habilidade> habilidades;
 

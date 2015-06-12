@@ -8,11 +8,13 @@ package br.com.estagio.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -32,7 +34,8 @@ public class Habilidade implements Serializable{
     private Integer id;
     @Column(name="descricao", length=20, nullable=false)
     private String descricao;
-    
+   
+       
    public Integer getId() {
         return id;
     }
