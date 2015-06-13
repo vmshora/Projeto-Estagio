@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
 
 
@@ -102,15 +103,16 @@ public class VagaDao {
                 
         }
        
-       public void excluir(Vaga vaga) {
+       public void excluir(Long id) {
        
            EntityManager em = EntityManagerUtil.getEntityManager();
         try {
            
             em.getTransaction().begin();
-            em.remove(vaga);
-            
+            Query q = em.createQuery("delete from Vaga where id = :id_vaga");
+            q.setParameter("id_vaga", id).executeUpdate();
             em.getTransaction().commit();
+              
         } finally {
             em.close();
         }

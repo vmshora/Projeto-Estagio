@@ -48,7 +48,7 @@ public class VagaJF extends javax.swing.JInternalFrame {
         listH = new ArrayList<Habilidade>();
         h = new ArrayList<Habilidade>();
         mTable = (DefaultTableModel)jTable.getModel();
-        habilitaCampos(false);
+        habilitaCamposIni(false);
      
     }
 
@@ -386,7 +386,7 @@ public class VagaJF extends javax.swing.JInternalFrame {
                
         // campo vazio = mensagem de erro?  
          JOptionPane.showMessageDialog(rootPane, "Um ou mais campos não foram preenchidos!");
-        
+         
         }else {       
         populaVaga();
         
@@ -406,9 +406,9 @@ public class VagaJF extends javax.swing.JInternalFrame {
        
         h2 = (Habilidade)jList2.getSelectedValue();
         h.remove(h2);
-        m1.addElement(jList2.getSelectedValue());
-        m2.removeElement(jList2.getSelectedValue());
-       
+        m1.addElement(h2);
+        m2.removeElementAt(jList2.getSelectedIndex());
+        
         jList1.setSelectedIndex(0);
         jList2.setSelectedIndex(0);
     }//GEN-LAST:event_B_rmvActionPerformed
@@ -418,15 +418,19 @@ public class VagaJF extends javax.swing.JInternalFrame {
     
        h1 = (Habilidade)jList1.getSelectedValue();
        h.add(h1);
-       m2.addElement(jList1.getSelectedValue());
-       m1.removeElement(jList1.getSelectedValue());
-     
+       m2.addElement(h1);
+       m1.remove(jList1.getSelectedIndex());
+      
+       
+       
        jList2.setSelectedIndex(0);
        jList1.setSelectedIndex(0);
     }//GEN-LAST:event_B_addActionPerformed
 
     private void B_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_buscarActionPerformed
          B_alterar.setEnabled(true);
+          B_excluir.setEnabled(true);
+         
          mTable.setNumRows(0);
         vagaC.pupularTabela(mTable, null);
        
@@ -434,6 +438,7 @@ public class VagaJF extends javax.swing.JInternalFrame {
 
     private void jTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMousePressed
         B_alterar.setEnabled(true);
+         B_excluir.setEnabled(true);
     }//GEN-LAST:event_jTableMousePressed
 
     private void B_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_alterarActionPerformed
@@ -462,8 +467,11 @@ public class VagaJF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_Combo_EmpresaActionPerformed
 
     private void B_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B_excluirActionPerformed
-       //  vaga = vagaC.preencherCampos((Long)mTable.getValueAt(jTable.getSelectedRow(),0));
-      // vaga = (Vaga)mTable.getColumnClass(0);
+       
+        vagaC.exluirVaga((Long)mTable.getValueAt(jTable.getSelectedRow(),0));
+        JOptionPane.showMessageDialog(rootPane, "Vaga excluida com sucesso!");
+        B_buscarActionPerformed(evt);
+      
     }//GEN-LAST:event_B_excluirActionPerformed
 
 
@@ -520,9 +528,11 @@ public class VagaJF extends javax.swing.JInternalFrame {
        try{
        
        vagaC.salvarVaga(vaga);
-       JOptionPane.showMessageDialog(rootPane, "Vaga gravada com sucesso");
+       JOptionPane.showMessageDialog(rootPane, "Vaga gravada com sucesso!");
        limpaFormaulario();
+       B_buscarActionPerformed(null);
        }catch(Exception e){
+        JOptionPane.showMessageDialog(rootPane, "Houve um problema ao gravar a vaga!");    
        e.printStackTrace();
        }
      
@@ -567,7 +577,24 @@ public class VagaJF extends javax.swing.JInternalFrame {
         TA_descricao.setEditable(valor);
         jList1.setEnabled(valor);
         jList2.setEnabled(valor);
+        B_gravar.setEnabled(true);
         B_alterar.setEnabled(!valor);
+        B_excluir.setEnabled(!valor);
+                
+    }  
+    
+     private void habilitaCamposIni(boolean valor){
+        TF_bolsa.setEditable(valor);
+        Combo_Empresa.setEnabled(valor);
+        Combo_curso.setEnabled(valor);
+        Combo_turno.setEnabled(valor);
+        TA_beneficios.setEditable(valor);
+        TA_descricao.setEditable(valor);
+        jList1.setEnabled(valor);
+        jList2.setEnabled(valor);
+        B_alterar.setEnabled(valor);
+        B_excluir.setEnabled(valor);
+        B_gravar.setEnabled(valor);
         
     }   
 
