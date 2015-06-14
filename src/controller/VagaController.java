@@ -29,7 +29,7 @@ public class VagaController {
       CursoDao c = new CursoDao();
       HabilidadeDao h = new HabilidadeDao();
       VagaDao v = new VagaDao();  
-        
+      Vaga va = new Vaga();  
         public List<PessoaJuridica> popularEmpresas(){
       
           return pj.listaEmpresas(); 
@@ -60,16 +60,20 @@ public class VagaController {
              v.excluir(id);
              
          }
-         public void pupularTabela(DefaultTableModel mTable, Long cod){
+         public void pupularTabela(DefaultTableModel mTable, Integer cod){
              
              if(cod == null){
                  
                  for(Vaga va:v.listaVagas()){
                      mTable.addRow(new Object[] {va.getId(),va.getEmpresa(),va.getCurso(),va.getTurno(),va.getDt_cadastro(),va.getStatus()});
                  }
+             }else {
+              va = v.buscaPorId(Long.valueOf(cod));
+                 mTable.addRow(new Object[] {va.getId(),va.getEmpresa(),va.getCurso(),va.getTurno(),va.getDt_cadastro(),va.getStatus()});
+               }   
              }
-         }
-         
+          
+
          public Vaga preencherCampos(Long id){
            
             return v.buscaPorId(id);

@@ -18,7 +18,7 @@ public class PrincipalJF extends javax.swing.JFrame {
     
     FundoTela desktop;
     VagaJF vagaJF;
-    
+    CandidatoJF candidatoJF;
    
     
     public PrincipalJF() {
@@ -39,6 +39,8 @@ public class PrincipalJF extends javax.swing.JFrame {
         jM_Candidato = new javax.swing.JMenuItem();
         jM_Vaga = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Estagiando");
@@ -54,6 +56,11 @@ public class PrincipalJF extends javax.swing.JFrame {
         jM_Gerenciar.add(jMI_Empresa);
 
         jM_Candidato.setText("Candidato");
+        jM_Candidato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jM_CandidatoActionPerformed(evt);
+            }
+        });
         jM_Gerenciar.add(jM_Candidato);
 
         jM_Vaga.setText("Vaga");
@@ -66,7 +73,14 @@ public class PrincipalJF extends javax.swing.JFrame {
 
         jMenuBar1.add(jM_Gerenciar);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Consultar");
+
+        jMenuItem1.setText("Candidatos");
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem2.setText("Vagas");
+        jMenu2.add(jMenuItem2);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -96,6 +110,12 @@ public class PrincipalJF extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jM_GerenciarActionPerformed
 
+    private void jM_CandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_CandidatoActionPerformed
+        candidatoJF = new CandidatoJF();
+        desktop.add(candidatoJF);
+        candidatoJF.setVisible(true);
+    }//GEN-LAST:event_jM_CandidatoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -115,5 +135,7 @@ public class PrincipalJF extends javax.swing.JFrame {
     private javax.swing.JMenuItem jM_Vaga;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }

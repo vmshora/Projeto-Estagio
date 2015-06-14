@@ -62,6 +62,11 @@ public class Cidade implements Serializable{
         final Cidade other = (Cidade) obj;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
     
 
 }

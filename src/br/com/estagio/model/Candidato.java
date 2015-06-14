@@ -37,9 +37,7 @@ public class Candidato implements Serializable{
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="id_endereco",referencedColumnName="id",nullable=false)
     private Endereco endereco;
-
-   
-
+    
     @ManyToOne
     @JoinColumn(name="id_curso",referencedColumnName="id",nullable=false)
     private Curso curso;
@@ -49,6 +47,9 @@ public class Candidato implements Serializable{
    
     @Column(name="nivel_escolaridade", length=50, nullable=false)
     private String nivel_escolaridade;
+    
+    @Column(name="turno_aula", length = 25, nullable = false)
+    private String turno_aula;
 
     private Integer ano_ingresso;
 
@@ -71,6 +72,9 @@ public class Candidato implements Serializable{
 
     @Column(name="telefone", length=12)
     private String telefone;
+    
+    @Column(name="celular", length = 12)
+    private String celular;
     
     @OneToMany(mappedBy = "id")
     private List<Vaga> vagas;
@@ -136,6 +140,14 @@ public class Candidato implements Serializable{
         this.nivel_escolaridade = nivel_escolaridade;
     }
 
+    public String getTurno_aula() {
+        return turno_aula;
+    }
+
+    public void setTurno_aula(String turno_aula) {
+        this.turno_aula = turno_aula;
+    }
+    
     public Integer getAno_ingresso() {
         return ano_ingresso;
     }
@@ -200,6 +212,14 @@ public class Candidato implements Serializable{
         this.telefone = telefone;
     }
 
+    public String getCelular() {
+        return celular;
+    }
+
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }    
+    
     public List<Habilidade> getHabilidades() {
         return habilidades;
     }

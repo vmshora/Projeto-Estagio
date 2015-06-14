@@ -153,7 +153,7 @@
                       <Component id="B_excluir" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="18" max="32767" attributes="0"/>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -242,6 +242,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="TF_bolsa">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField()"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="/*MaskFormatter mascaraCampo = null;&#xa;try {&#xa;    mascaraCampo= new MaskFormatter(&quot;#.###,##&quot;);&#xa;}catch (ParseException e) {&#xa;}*/"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="//JFormattedTextField TF_bolsa = new JFormattedTextField(mascaraCampo);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JSeparator" name="Sep_formulario">
     </Component>
@@ -337,6 +342,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="TF_codigo">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TF_codigoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="B_novo">
       <Properties>

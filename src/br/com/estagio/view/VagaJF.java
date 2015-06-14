@@ -11,15 +11,20 @@ import br.com.estagio.model.PessoaJuridica;
 import br.com.estagio.model.Vaga;
 import controller.VagaController;
 import java.awt.event.ItemListener;
+import java.text.ParseException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -27,7 +32,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VagaJF extends javax.swing.JInternalFrame {
 
-    Calendar dataAtual; 
+    Date dataAtual; 
     Vaga vaga;
     List<Curso> listCurso;
     List<PessoaJuridica> listPJ;
@@ -72,6 +77,11 @@ public class VagaJF extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         TA_beneficios = new javax.swing.JTextArea();
         LB_bolsa = new javax.swing.JLabel();
+        /*MaskFormatter mascaraCampo = null;
+        try {
+            mascaraCampo= new MaskFormatter("#.###,##");
+        }catch (ParseException e) {
+        }*/
         TF_bolsa = new javax.swing.JTextField();
         Sep_formulario = new javax.swing.JSeparator();
         LB_pesquisar = new javax.swing.JLabel();
@@ -135,6 +145,8 @@ public class VagaJF extends javax.swing.JInternalFrame {
 
         LB_bolsa.setText("Valor Bolsa:");
 
+        //JFormattedTextField TF_bolsa = new JFormattedTextField(mascaraCampo);
+
         LB_pesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         LB_pesquisar.setText("Pesquisar:");
 
@@ -170,6 +182,12 @@ public class VagaJF extends javax.swing.JInternalFrame {
         jScrollPane3.setViewportView(jTable);
 
         LB_codigo.setText("Código:");
+
+        TF_codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TF_codigoActionPerformed(evt);
+            }
+        });
 
         B_novo.setText("Novo");
         B_novo.addActionListener(new java.awt.event.ActionListener() {
@@ -365,7 +383,7 @@ public class VagaJF extends javax.swing.JInternalFrame {
                         .addComponent(B_alterar)
                         .addComponent(B_gravar)
                         .addComponent(B_excluir)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -432,8 +450,11 @@ public class VagaJF extends javax.swing.JInternalFrame {
           B_excluir.setEnabled(true);
          
          mTable.setNumRows(0);
+      if(TF_codigo.getText().isEmpty()){   
         vagaC.pupularTabela(mTable, null);
-       
+      }else{ 
+      vagaC.pupularTabela(mTable,Integer.valueOf(TF_codigo.getText())); 
+      }
     }//GEN-LAST:event_B_buscarActionPerformed
 
     private void jTableMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMousePressed
@@ -473,6 +494,10 @@ public class VagaJF extends javax.swing.JInternalFrame {
         B_buscarActionPerformed(evt);
       
     }//GEN-LAST:event_B_excluirActionPerformed
+
+    private void TF_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_codigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TF_codigoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -515,6 +540,7 @@ public class VagaJF extends javax.swing.JInternalFrame {
 
     final void populaVaga(){
        //List<Habilidade> list = new ArrayList<Habilidade>();
+        dataAtual = new Date();
        vaga.setCurso((Curso)Combo_curso.getSelectedItem());
        vaga.setDescricao(TA_descricao.getText());
        vaga.setDs_beneficio(TA_beneficios.getText());
@@ -523,6 +549,7 @@ public class VagaJF extends javax.swing.JInternalFrame {
        vaga.setTurno(Combo_turno.getSelectedItem().toString());
        vaga.setValor_bolsa(Integer.parseInt(TF_bolsa.getText()));
        vaga.setHabilidades(h);
+       vaga.setDt_cadastro(dataAtual);
        System.out.println(h.size());
        
        try{

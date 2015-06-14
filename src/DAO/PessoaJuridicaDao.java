@@ -62,4 +62,20 @@ public class PessoaJuridicaDao {
            return listPJ;
                 
         }
+      
+       public List<PessoaJuridica> listaInstituicaoEnsino() {
+                
+           List<PessoaJuridica> instituicoes = new ArrayList<PessoaJuridica>();
+           
+           EntityManager em = EntityManagerUtil.getEntityManager();
+        try {          
+            em.getTransaction().begin();
+            Query q = em.createQuery("from PessoaJuridica p where p.ds_tipo = 'ENSINO' ");
+            instituicoes= q.getResultList();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }  
+           return instituicoes;                
+        }
  }    
