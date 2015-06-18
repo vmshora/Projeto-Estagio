@@ -79,16 +79,18 @@ public class CandidatoVagaDao {
         Candidato cand = new Candidato(); 
         Vaga va = new Vaga();
         CandidatoVaga candV = new CandidatoVaga();
+        String param = "where v.candidato = :cand and v.vaga = :va";
         EntityManager em = EntityManagerUtil.getEntityManager();
         try {
           
            em.getTransaction().begin();
            cand = em.find(Candidato.class, 3L);
            va = em.find(Vaga.class, id_vaga);
-           candV.setCandidato(cand);
-           candV.setVaga(va);
-            em.merge(candV);
            
+            Query q = em.createQuery("delete from CandidatoVaga v "+ param);
+            q.setParameter("cand", cand);
+            q.setParameter("va", va);
+            q.executeUpdate();
             em.getTransaction().commit();
       
        

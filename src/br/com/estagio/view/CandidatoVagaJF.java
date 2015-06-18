@@ -214,9 +214,10 @@ public class CandidatoVagaJF extends javax.swing.JInternalFrame {
        // vagaSelec = vagaC.preencherCampos((Long)mTable.getValueAt(jTable.getSelectedRow(),0));  
         
         VagaCandC.excluirVagaCandidato(vagaId, cand);
-         JOptionPane.showMessageDialog(rootPane, "Voce se candidatou à vaga com sucesso!");
+         JOptionPane.showMessageDialog(rootPane, "Voce cancelou sua candidatura à vaga com sucesso!");
+            B_buscarActionPerformed(evt);
         }catch(Exception e){
-          JOptionPane.showMessageDialog(rootPane, "Não foi possível se candidatar à vaga!");  
+          JOptionPane.showMessageDialog(rootPane, "Não foi possível cancelar sua candidatura à vaga!");  
         }
     }//GEN-LAST:event_B_gravarActionPerformed
 
