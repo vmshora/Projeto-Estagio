@@ -245,5 +245,10 @@ public class Candidato implements Serializable{
         final Candidato other = (Candidato) obj;
         return true;
     }
+
+    @Override
+     public String toString() {
+        return this.nome;
+    }
     
 }

@@ -11,14 +11,13 @@ package DAO;
  */
 
 import br.com.estagio.factory.EntityManagerUtil;
-import br.com.estagio.model.Habilidade;
+import br.com.estagio.model.Curso;
+import br.com.estagio.model.PessoaJuridica;
 import br.com.estagio.model.Vaga;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
 
 
 
@@ -117,6 +116,44 @@ public class VagaDao {
             em.close();
         }
           
+                
+        }
+      
+        public List<Vaga> listaVagas(Curso c, PessoaJuridica p) {
+                
+           List<Vaga> vagas = new ArrayList<Vaga>();
+           String param = "where ";
+           System.out.println("cheguei fim1");
+          if (p != null && c != null){
+              param = param + "v.empresa = :empresa and v.curso = :curso";
+          }else if (c != null){ 
+             param = param + "v.curso = :curso";
+          }else{System.out.println("cheguei fim");
+              param = param + "v.empresa = :empresa";    
+         }
+           EntityManager em = EntityManagerUtil.getEntityManager();
+        try {
+          
+            em.getTransaction().begin();
+            
+            Query q = em.createQuery("select v from Vaga v "+ param);
+          
+           if (c != null){  
+            q.setParameter("curso", c);
+           }
+           if (p != null){
+               q.setParameter("empresa", p);
+           }
+                      
+            vagas = q.getResultList();
+            
+            
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+           
+           return vagas;
                 
         }
       

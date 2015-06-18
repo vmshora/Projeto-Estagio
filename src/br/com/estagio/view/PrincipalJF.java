@@ -19,7 +19,8 @@ public class PrincipalJF extends javax.swing.JFrame {
     FundoTela desktop;
     VagaJF vagaJF;
     CandidatoJF candidatoJF;
-   
+    VagaCandidatoJF vagaCandidatoJF;
+    CandidatoVagaJF candidatoVagaJF;
     
     public PrincipalJF() {
         initComponents();
@@ -35,12 +36,12 @@ public class PrincipalJF extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jM_Gerenciar = new javax.swing.JMenu();
-        jMI_Empresa = new javax.swing.JMenuItem();
+        jM_Empresa = new javax.swing.JMenuItem();
         jM_Candidato = new javax.swing.JMenuItem();
         jM_Vaga = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jM_candidatoVaga = new javax.swing.JMenuItem();
+        jM_vagaCandidato = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Estagiando");
@@ -52,8 +53,13 @@ public class PrincipalJF extends javax.swing.JFrame {
             }
         });
 
-        jMI_Empresa.setText("Empresa");
-        jM_Gerenciar.add(jMI_Empresa);
+        jM_Empresa.setText("Empresa");
+        jM_Empresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jM_EmpresaActionPerformed(evt);
+            }
+        });
+        jM_Gerenciar.add(jM_Empresa);
 
         jM_Candidato.setText("Candidato");
         jM_Candidato.addActionListener(new java.awt.event.ActionListener() {
@@ -75,11 +81,21 @@ public class PrincipalJF extends javax.swing.JFrame {
 
         jMenu2.setText("Consultar");
 
-        jMenuItem1.setText("Candidatos");
-        jMenu2.add(jMenuItem1);
+        jM_candidatoVaga.setText("Candidatos");
+        jM_candidatoVaga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jM_candidatoVagaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jM_candidatoVaga);
 
-        jMenuItem2.setText("Vagas");
-        jMenu2.add(jMenuItem2);
+        jM_vagaCandidato.setText("Vagas");
+        jM_vagaCandidato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jM_vagaCandidatoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jM_vagaCandidato);
 
         jMenuBar1.add(jMenu2);
 
@@ -116,6 +132,22 @@ public class PrincipalJF extends javax.swing.JFrame {
         candidatoJF.setVisible(true);
     }//GEN-LAST:event_jM_CandidatoActionPerformed
 
+    private void jM_vagaCandidatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_vagaCandidatoActionPerformed
+      vagaCandidatoJF = new VagaCandidatoJF();
+      desktop.add(vagaCandidatoJF);
+      vagaCandidatoJF.setVisible(true);
+    }//GEN-LAST:event_jM_vagaCandidatoActionPerformed
+
+    private void jM_EmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_EmpresaActionPerformed
+     
+    }//GEN-LAST:event_jM_EmpresaActionPerformed
+
+    private void jM_candidatoVagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jM_candidatoVagaActionPerformed
+      candidatoVagaJF = new CandidatoVagaJF();
+      desktop.add(candidatoVagaJF);
+      candidatoVagaJF.setVisible(true);
+    }//GEN-LAST:event_jM_candidatoVagaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -129,13 +161,13 @@ public class PrincipalJF extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMI_Empresa;
     private javax.swing.JMenuItem jM_Candidato;
+    private javax.swing.JMenuItem jM_Empresa;
     private javax.swing.JMenu jM_Gerenciar;
     private javax.swing.JMenuItem jM_Vaga;
+    private javax.swing.JMenuItem jM_candidatoVaga;
+    private javax.swing.JMenuItem jM_vagaCandidato;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     // End of variables declaration//GEN-END:variables
 }
