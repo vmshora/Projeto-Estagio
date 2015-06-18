@@ -73,10 +73,38 @@ public class VagaController {
                }   
              }
           
-
+        
+         public boolean pupularTabela(DefaultTableModel mTable,Long cod, Curso c, PessoaJuridica p){
+              
+            if(cod == null || cod.equals("")){
+             
+               if(c != null || p != null){
+                 for(Vaga va:v.listaVagas(c,p)){
+                     mTable.addRow(new Object[] {va.getId(),va.getEmpresa(),va.getCurso(),va.getTurno(),va.getDt_cadastro(),va.getStatus()});
+                 }
+                 return true;   
+               }else{
+                   for(Vaga va:v.listaVagas()){
+                     mTable.addRow(new Object[] {va.getId(),va.getEmpresa(),va.getCurso(),va.getTurno(),va.getDt_cadastro(),va.getStatus()});
+                   }
+                     return true;   
+                 } 
+            }else if(cod != null){  
+              va = v.buscaPorId(cod);
+                 mTable.addRow(new Object[] {va.getId(),va.getEmpresa(),va.getCurso(),va.getTurno(),va.getDt_cadastro(),va.getStatus()});
+                return true; 
+            } 
+           return false;   
+         }
+        
+         
          public Vaga preencherCampos(Long id){
            
             return v.buscaPorId(id);
+         }
+         
+         public void selecionaVaga(Vaga v){
+             
          }
     }
                  
